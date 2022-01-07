@@ -1,0 +1,92 @@
+create database module_exam;
+use module_exam;
+section 1
+============
+
+1.
+==
+create table DEPT(
+DEPTNO int,
+DNAME varchar(15),
+LOC varchar(10)
+);
+insert into DEPT(DEPTNO, DNAME, LOC)
+values(10, 'ACCOUNTING','NEW YORK'),
+(20,'RESEARCH','DALLAS'),
+(30,'SALES','CHICAGO'),
+(40, 'OPERATIONS','BOSTON');
+select * from DEPT;
+
+
+2.
+==
+create table EMP(
+EMPNO int,
+ENAME varchar(10),
+JOB varchar(9),
+HIREDATE date,
+SAL float,
+COMM float,
+DEPTNO int
+);
+insert into EMP(EMPNO,ENAME,JOB,HIREDATE,SAL,COMM,DEPTNO)
+values(7839,'KING','MANAGER','1991-11-17',5000,NULL, 10),
+(7698,'BLAKE','CLERK','1981-05-01', 2850,NULL,30),
+(7782,'CLARK', 'MANAGER', '1981-06-09', 2450,NULL, 10),
+(7566,'JONES','CLERK','1981-04-02', 2975, NULL, 20),
+(7654,'MARTIN','SALESMAN','1981-09-28',1250, 1400, 30),
+(7499,'ALLEN','SALESMAN','1981-02-20', 1600,300,30);
+select * from EMP;
+
+
+section 2
+==========
+-- 1
+select ename,hiredate from emp where month(hiredate) = 2;
+
+-- 2
+select ename from emp where ename like "%m";
+
+-- 3
+select ename,job from emp where deptno = (select deptno from emp where ename='king');
+
+
+-- 4
+
+
+-- 5
+select distinct job from emp;
+
+-- 6
+select emp.ename, dept.dname from emp,dept;
+
+-- 7
+select * from emp 
+order by deptno desc;
+
+-- 8
+select ename from emp where comm = "null";
+
+-- 9
+select ename.name,empno.number from emp;
+
+
+
+
+section3
+=========
+
+-- 1
+create table tempp(temperaturecenti float);
+delimiter //
+create procedure conversion (f float)
+begin
+declare C float;
+set C=(f-32)*5/9;
+insert into tempp values(C);
+end;//
+delimiter ;
+
+call conversion(23.5);
+select * from tempp;
+
